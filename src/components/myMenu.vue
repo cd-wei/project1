@@ -7,14 +7,6 @@
                       <Icon type="ios-navigate"></Icon>
                       <span>Option 1</span>
                   </MenuItem>
-                  <MenuItem name="1-2">
-                      <Icon type="search"></Icon>
-                      <span>Option 2</span>
-                  </MenuItem>
-                  <MenuItem name="1-3">
-                      <Icon type="settings"></Icon>
-                      <span>Option 3</span>
-                  </MenuItem>
               </Menu>
           </Sider>
           <Layout>
@@ -31,7 +23,8 @@
                 <Page :total='length' show-total :page-size='pageSize' class="paging" @on-change="handleChange"></Page>
               </Content>
               <Footer class="layout-footer">
-                Copyright&nbsp;&copy;&nbsp;cdw - 2017 All rights reserved
+                Copyright&nbsp;&copy;&nbsp;cdw - 2017 All rights reserved<br />
+                地点:{{addr}}&nbsp;&nbsp;天气:{{txt}}&nbsp;&nbsp;温度:{{temperature}}℃ &nbsp;&nbsp;&nbsp;天气数据由心知天气提供
               </Footer>
           </Layout>
       </Layout>
@@ -108,10 +101,14 @@ export default {
           this.data = this.historyData.slice(0, this.pageSize);
         }
       }
+    },
+    getWeather(){
+      this.$store.dispatch('getApi');
     }
   },
   created() {
     this.getData();
+    this.getWeather();
   },
   computed: {
     rotateIcon() {
@@ -119,6 +116,15 @@ export default {
     },
     menuitemClasses() {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
+    },
+    addr(){
+      return this.$store.state.addr
+    },
+    txt(){
+      return this.$store.state.txt
+    },
+    temperature(){
+      return this.$store.state.temperature
     }
   },
   components: {

@@ -67,8 +67,7 @@ export default {
         props: ["data"],
         methods: {
             remove(index){
-                delete this.data[index];
-                console.log(index++)
+                this.data.splice(index, 1);
             }
         }
     }
